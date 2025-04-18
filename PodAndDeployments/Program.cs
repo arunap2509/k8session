@@ -19,6 +19,20 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
+var killPod = false;
+
+app.MapPost("/delete-pod", () =>
+{
+    killPod = true;
+    return Results.Ok();
+});
+
+app.MapGet("liveliness", () =>
+{
+    if (killPod) Results.InternalServerError();
+    return Results.Ok();
+});
+
 app.MapGet("/weatherforecast", () =>
     {
         var forecast = Enumerable.Range(1, 5).Select(index =>
