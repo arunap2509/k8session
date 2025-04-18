@@ -19,17 +19,30 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-var killPod = false;
+var fakeLiveness = false;
+var fakeReadiness = false;
 
 app.MapPost("/delete-pod", () =>
 {
-    killPod = true;
+    fakeLiveness = true;
     return Results.Ok();
 });
 
-app.MapGet("liveliness", () =>
+app.MapPost("/delay-ready", () =>
 {
-    if (killPod) Results.InternalServerError();
+    fakeReadiness = true;
+    return Results.Ok();
+});
+
+app.MapGet("liveness", () =>
+{
+    if (fakeLiveness) Results.Problem();
+    return Results.Ok();
+});
+
+app.MapGet("readiness", () =>
+{
+    if (fakeReadiness) Results.Problem();
     return Results.Ok();
 });
 

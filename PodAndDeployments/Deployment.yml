@@ -16,9 +16,25 @@ spec:
     spec:
       containers:
       - name: dotnet-webapi
-        image: arunap2509/k8session-poddemo:latest
+        image: arunap2509/k8session-deploymentsdemo:latest
         ports:
         - containerPort: 8080
           name: http
           protocol: TCP
         resources: {}
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+          periodSeconds: 5
+          successThreshold: 1
+        livenessProbe:
+          httpGet:
+            port: 8080
+            path: /liveness
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+          periodSeconds: 5
+          failureThreshold: 1
