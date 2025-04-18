@@ -34,17 +34,9 @@ app.MapPost("/delay-ready", () =>
     return Results.Ok();
 });
 
-app.MapGet("liveness", () =>
-{
-    if (fakeLiveness) Results.Problem();
-    return Results.Ok();
-});
+app.MapGet("/liveness", () => fakeLiveness ? Results.Problem() : Results.Ok());
 
-app.MapGet("readiness", () =>
-{
-    if (fakeReadiness) Results.Problem();
-    return Results.Ok();
-});
+app.MapGet("/readiness", () => fakeReadiness ? Results.Problem() : Results.Ok());
 
 app.MapGet("/weatherforecast", () =>
     {
