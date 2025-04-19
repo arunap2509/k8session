@@ -7,7 +7,7 @@ RUN dotnet build "Helper.csproj" -c Release -o /app/build
 RUN dotnet publish "Helper.csproj" -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
-EXPOSE 8090
+EXPOSE 8080
 WORKDIR /app
 COPY --from=build /app/publish .
 

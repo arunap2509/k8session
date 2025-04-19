@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: dotnet-webapi
-        image: arunap2509/k8session-deploymentswithhealthprobsdemo:latest
+        image: arunap2509/k8session-svcapi:latest
         ports:
         - containerPort: 8080
           name: http

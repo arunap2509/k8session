@@ -41,7 +41,7 @@ app.MapGet("/readiness", () => fakeReadiness ? Results.Problem() : Results.Ok())
 
 app.MapGet("/say-hello", async (HttpClient httpClient) =>
 {
-    var name = await httpClient.GetStringAsync("http://k8session-helper-service/name");
+    var name = await httpClient.GetStringAsync("http://k8session-helper-service.default.svc.cluster.local/name");
     return $"Hello, {name}";
 });
 

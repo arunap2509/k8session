@@ -5,11 +5,11 @@ metadata:
   name: k8session-helper-service
 spec:
   selector:
-    app: dotnet-webapi
+    app: dotnet-helper-webapi
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8090
+      targetPort: 8080
   type: ClusterIP
   
 ---
@@ -31,9 +31,9 @@ spec:
     spec:
       containers:
         - name: dotnet-helper-webapi
-          image: arunap2509/k8session-deploymentswithhealthprobsdemo:latest
+          image: arunap2509/k8session-svchelperapi:latest
           ports:
-            - containerPort: 8090
+            - containerPort: 8080
               name: http
               protocol: TCP
           resources: {}
