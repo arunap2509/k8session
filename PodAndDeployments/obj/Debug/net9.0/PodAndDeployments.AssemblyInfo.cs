@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PodAndDeployments")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3efd806b11e8c667198f75098057c8443de19cc0")]
 [assembly: System.Reflection.AssemblyProductAttribute("PodAndDeployments")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PodAndDeployments")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

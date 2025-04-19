@@ -3,6 +3,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
@@ -38,6 +39,12 @@ app.MapGet("/liveness", () => fakeLiveness ? Results.Problem() : Results.Ok());
 
 app.MapGet("/readiness", () => fakeReadiness ? Results.Problem() : Results.Ok());
 
+app.MapGet("/say-hello", async (HttpClient httpClient) =>
+{
+    var name = await httpClient.GetStringAsync("http://k8session-helper-service/name");
+    return $"Hello, {name}";
+});
+
 app.MapGet("/weatherforecast", () =>
     {
         var forecast = Enumerable.Range(1, 5).Select(index =>
@@ -49,8 +56,7 @@ app.MapGet("/weatherforecast", () =>
                 ))
             .ToArray();
         return forecast;
-    })
-    .WithName("GetWeatherForecast");
+    });
 
 app.Run();
 
