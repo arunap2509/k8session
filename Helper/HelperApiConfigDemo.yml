@@ -10,8 +10,9 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
-  type: ClusterIP
-  
+      nodePort: 30015
+  type: NodePort
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -31,7 +32,16 @@ spec:
     spec:
       containers:
         - name: dotnet-helper-webapi
-          image: arunap2509/k8session-svchelperapi:latest
+          image: arunap2509/k8session-configmaps:latest
+          envFrom:
+            - configMapRef:
+                name: helper-api-config
+          env:
+           - name: JOB_ENV_VARIABLE
+             valueFrom:
+               configMapKeyRef:
+                 name: helper-api-config
+                 key: Job
           ports:
             - containerPort: 8080
               name: http
@@ -46,3 +56,4 @@ metadata:
   name: helper-api-config
 data:
   Name: 'John'
+  Job: 'Engineer'
